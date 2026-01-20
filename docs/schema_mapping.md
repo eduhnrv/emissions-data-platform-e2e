@@ -6,7 +6,7 @@
 
 ## 1. Descripción general.
 
-Los datos de emisiones a cuerpos de agua utilizados en esta plataforma provienen de fuentes públicas oficiales y abarcan un período extenso (2005–2026). A lo largo de estos años, el modelo de datos original ha experimentado cambios estructurales significativos, tanto en la forma de nombrar columnas como en el nivel de normalización, granularidad y uso de identificadores.
+Los datos de emisiones al agua de contaminantes utilizados en esta plataforma provienen de fuentes públicas oficiales y abarcan un período extenso (2005–2026). A lo largo de estos años, el modelo de datos original ha experimentado cambios estructurales significativos, tanto en la forma de nombrar columnas como en el nivel de normalización, granularidad y uso de identificadores.
 
 En particular, se identifican tres generaciones de esquema:
 
