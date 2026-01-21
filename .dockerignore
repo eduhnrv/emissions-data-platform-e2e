@@ -1,0 +1,25 @@
+# Git / OS
+.git
+.gitignore
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Datos (no se copian a la imagen; se montan)
+data/raw/
+data/staging/
+reports/
+
+# Otros
+*.swp
+
