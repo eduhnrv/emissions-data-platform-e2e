@@ -153,7 +153,29 @@ pip install -r requirements.txt
 python -m src.analytics.insights
 ```
 
----------
+## Sample Output (Ejecución exitosa)
+
+La ejecución del pipeline analítico —tanto en modo Docker como en ejecución local—
+produce el siguiente resumen en consola, validando la correcta carga del dataset
+STAGING, la generación de artefactos analíticos y la obtención de insights reproducibles:
+
+```text
+=== Analytics: Insights (STAGING) ===
+Input: data/staging/emisiones_staging.parquet
+Shape: (178963, 27)
+
+=== Outputs ===
+- Figures: reports/figures
+- Tables : reports/tables
+
+=== Summary ===
+- Años cubiertos: 2005–2024
+- Región #1 (acumulado): Antofagasta
+- Contaminante #1 (acumulado): Cloruros
+- Concentración top 5% emisores: 92.83%
+
+```
+
 ## Uso de Docker y Reproducibilidad
 
 Docker se incorpora en este proyecto con el objetivo de garantizar reproducibilidad
