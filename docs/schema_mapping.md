@@ -6,15 +6,15 @@
 
 ## 1. Descripción general.
 
-Los datos de emisiones al agua de contaminantes utilizados en esta plataforma provienen de fuentes públicas oficiales y abarcan un período extenso (2005–2026). A lo largo de estos años, el modelo de datos original ha experimentado cambios estructurales significativos, tanto en la forma de nombrar columnas como en el nivel de normalización, granularidad y uso de identificadores.
+Los datos de emisiones al agua de contaminantes utilizados en esta plataforma provienen de fuentes públicas oficiales y abarcan un período extenso (2005–2026, con datos efectivos hasta 2024). A lo largo de estos años, el modelo de datos original ha experimentado cambios estructurales significativos, tanto en la forma de nombrar columnas como en el nivel de normalización, granularidad y uso de identificadores.
 
 En particular, se identifican tres generaciones de esquema:
 
 - **2005-2017** : Un modelo con encabezados descriptivos, uso de acentos y espacios, ausencia de identificadores normalizados y algunas limitantes técnicas.
-- **2018-2023** : Una transición hacia esquemas más técnicos *snake case*, incorporación progresiva de identificadoresy métricas más estandarizadas, aunque con inconsistencias de *encoding* y variaciones menores entre cada año.
-- **2024-2026** : Un modelo más vanguardista y normalizado, con separación clara entre dimensiones, uso sistémico de IDs, métricas consolidadas y mayor preparación para consumo analítico.
+- **2018-2023** : Una transición hacia esquemas más técnicos *snake case*, incorporación progresiva de identificadores y métricas más estandarizadas, aunque con inconsistencias de *encoding* y variaciones menores entre cada año.
+- **2024-2026** : Un esquema más normalizado y consistente. En la práctica, para este proyecto el archivo 2024-2026 contiene registros efectivos únicamente para el año 2024 (según el campo anio).
 
-Debido a esta evolución, no es posible ni deseable unificar estos datasets mediante una unión directa. Por esta razón se define un esquema canónico v1, que actúa como contrato de datos estable en la capa *Staging*.
+Debido a esta evolución, no es posible ni deseable unificar estos datasets mediante una unión directa. Por esta razón se define un esquema canónico v1, que actúa como contrato de datos estable en la capa **STAGING**.
 Este esquema:
 
 - **Preserva la información esencial de todos los períodos.**
@@ -35,7 +35,7 @@ Este esquema:
 - **IDs tratados como *string*.**
 - **Métrica única canónica para emisiones: *emision_toneladas***
 - **Valores no disponibles en ciertos períodos se representan como *NULL***
-- **Encoding normalizado a UTF-8 en *Staging*.**
+- **Encoding normalizado a UTF-8 en STAGING.**
  
 ## 3. Esquemas identificados.
 <table style="border: 3px solid black; border-collapse: collapse;">
@@ -52,7 +52,7 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>snake_case</i>, IDs explícitos, encoding inconsistente</td>
   </tr>
   <tr>
-    <td style="border: 3px solid black; padding: 8px;">2024-2026</td>
+    <td style="border: 3px solid black; padding: 8px;">2024-2026 (efectivo 2024)</td>
     <td style="border: 3px solid black; padding: 8px;">Esquema moderno, normalizado, consistente</td>
   </tr>
 </table>
@@ -60,7 +60,7 @@ Este esquema:
 
 ## 4. Esquema canónico v1 y mapeo por período.
 ### 4.1. Metadatos de plataforma
-
+ datos efectivos hasta 2024
 <table style="border: 3px solid black; border-collapse: collapse;">
   <tr>
     <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">Columna canónica</th>
@@ -108,7 +108,7 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>Normalización de encoding</i></td>
   </tr>
 </table>
-<br>
+
 ### 4.3. Identidad del establecimiento.
 
 <table style="border: 3px solid black; border-collapse: collapse;">
@@ -123,7 +123,7 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>razon_social</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>Razón social</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>razon_social</i></td>
+    <td style="border: 3px  datos efectivos hasta 2024solid black; padding: 8px;"><i>razon_social</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>razon_social</i></td>
   </tr>
    <tr>
@@ -138,18 +138,17 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>Nombre de establecimiento</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>nombre_establecimiento</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>nombre_establecimiento</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>nombre_establecimiento</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>id_vu</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>ID establecimiento(VU)</i></td>
+    <td style="border: 3px solid black; padding: 8px;" datos efectivos hasta 2024><i>id_vu</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>id_vu</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>id_vu</i><td>
 
   </tr>
 </table>
-<br>
 ### 4.4. Clasificación económica.
 
 <table style="border: 3px solid black; border-collapse: collapse;">
@@ -172,28 +171,28 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>id_ciiu4</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>ciiu4_id</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>ciiu4_id</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>ciiu6</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>ciiu6</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>ciiu6</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>ciiu6</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>ciiu6_id</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>id_ciiu6</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>ciiu6_id</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>ciiu6_id</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>rubro</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>Rubro RETC</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>rubro_vu</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>rubro</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>rubro</i></td>
   </tr>
 
  <tr>
@@ -201,11 +200,10 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>id_rubro_vu</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>rubro_id</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>rubro_id</i></td>
   </tr>
 
 </table>
-<br>
 ### 4.5. Geografía.
 
 <table style="border: 3px solid black; border-collapse: collapse;">
@@ -235,19 +233,18 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>Comuna</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>comuna/comuna_</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>comuna</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>comuna</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>codigo_territorial</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>id_comuna</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>codigo_unico_territorial</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>codigo_unico_territorial</i></td>
 
   </tr>
 </table>
-<br>
-### 4.6. Identidad del establecimiento.
+### 4.6. Georeferenciación.
 
 <table style="border: 3px solid black; border-collapse: collapse;">
   <tr>
@@ -283,8 +280,7 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>No transformado en v1</i></td>
   </tr>
 </table>
-<br>
-
+<br><br>
 ### 4.7. Emisión(núcleo analítico)
 <table style="border: 3px solid black; border-collapse: collapse;">
   <tr>
@@ -312,26 +308,27 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>contaminante_id</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>id_contaminante</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>contaminante_id</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>id_contaminantes</i></td>
+    <td style="border: 3px solid black; padding: 8px;"><i>contaminante_id</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>norma</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>Norma</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>norma</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>norma</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>norma</i></td>
   </tr>
  <tr>
     <td style="border: 3px solid black; padding: 8px;"><i>origen</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>string</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>-</i></td>
     <td style="border: 3px solid black; padding: 8px;"><i>origen</i></td>
-    <td style="border: 3px solid black; padding: 8px;"><i>origen</i><td>
+    <td style="border: 3px solid black; padding: 8px;"><i>origen</i></td>
   </tr>
-
 </table>
-<br>
+
+**Nota:** *En el raw trae la columna como id_contaminantes(con espacio final). Se normaliza a id_contaminantes en STAGING.* 
+
 ### 4.8. Infraestructura
 
 <table style="border: 3px solid black; border-collapse: collapse;">
@@ -339,7 +336,7 @@ Este esquema:
     <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">Columna canónica</th>
     <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">Tipo</th>
     <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">2005-2017</th>
-    <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">2018-2023</th>
+ datos efectivos hasta 2024    <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">2018-2023</th>
     <th style="border: 3px solid black; padding: 8px; background-color: #f2f2f2;">2024-2026</th>
   </tr>
   <tr>
@@ -357,7 +354,7 @@ Este esquema:
     <td style="border: 3px solid black; padding: 8px;"><i>ducto_nombre</i></td>
   </tr>
 </table>
-<br>
+
 ### 4.9. Campo técnico.
 
 <table style="border: 3px solid black; border-collapse: collapse;">
@@ -375,21 +372,20 @@ Este esquema:
 
 ## 5. Reglas de transformación en STAGING
 
-Durante la capa *staging*, los datos deben ajustarse al esquema canónico definido, aplicando las siguientes reglas:
+Durante la capa STAGING, los datos deben ajustarse al esquema canónico definido, aplicando las siguientes reglas:
 
-- **Normalización de encoding y nombres de columnas para asegurar consistencia(por ejemplo, corrección de caracteres mal codificados como a�o a anio)**
+- Normalizar nombres y encoding a *snake_case* UTF-8 (ej.: a�o → anio).
+- Unificar la métrica en *emision_toneladas* (float).
+- Tipar columnas críticas:
+  - anio → int (nullable si aplica)
+  - *emision_toneladas* → float
+  - IDs → string
+- Agregar trazabilidad:
+  - *source_file* (nombre del archivo raw)
+  - *fecha_ingestion* (fecha de procesamiento/carga)
+- No imputar datos históricos: campos ausentes en periodos legacy se preservan como *NULL*.
 
-- **Unificación de las métricas de emisión en una única columna semántica(emision_toneladas), independiente del nombre original utilizado en cada período**
-
-- **Conversión explicita de tipos de datos:**
-    - ***anio como entero***
-    - ***emision_toneladas como valor flotante***
-    - ***Identificadores tratados como cadenas de texto para evitar inconsistencias históricas***
-
-- **Incorporación de metadatos de trazabilidad(source_file, fecha_ingestion) generados durante el proceso de carga**
-
-- **Se mantendrá respeto estricto por los datos originales: los campos no disponibles en períodos legacy se mantienen como valores nulos y no se infieren ni completan artificialmente**
- 
 ## 6. Alcance del esquema.
 
-Cualquier cambio estructural futuro deberá introducirse mediante una nueva versión del esquema, conservando compatibilidad y trazabilidad entre versiones (v2, v3, etc) 
+El esquema canónico v1 rige la capa STAGING y actúa como contrato para consumo analítico (analytics/reports). Cualquier cambio estructural deberá publicarse como una nueva versión (v2, v3, …), manteniendo trazabilidad y compatibilidad hacia atrás cuando sea posible.
+

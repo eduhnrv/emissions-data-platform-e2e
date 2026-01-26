@@ -7,7 +7,7 @@
 
 Este documento describe las validaciones de calidad aplicadas a la capa *staging* del proyecto Environmental Data Platform, cuyo objetivo es garantizar que el dataset unificado de emisiones cumpla con el esquema canónico v1 y sea consistente, trazable y apto para su consumo analítico.
 
-Las validaciones se realizaron sobre datos históricos comprendidos entre los años 2005 y 2026, provenientes de fuentes públicas oficiales de la Subsecretaría del Medio Ambiente.
+Las validaciones se realizaron sobre datos históricos comprendidos entre los años 2005 y 2026, provenientes de fuentes públicas oficiales de la Subsecretaría del Medio Ambiente, con cobertura temporal efectiva entre los años 2005 y 2024.
 
 ---
 
@@ -15,8 +15,11 @@ Las validaciones se realizaron sobre datos históricos comprendidos entre los a�
 
 - **Nombre:** `emisiones_staging.parquet`
 - **Capa:** STAGING
-- **Cobertura temporal:** 2005 – 2026
+- **Cobertura temporal:** 2005 – 2024
 - **Dominio:** Emisiones al agua de cuerpos contaminantes
+
+ **Nota:**  
+El archivo administrativo `2024–2026.csv` contiene registros reportados únicamente para el año 2024. No se detectaron valores correspondientes a los años 2025 ni 2026 en el campo `anio`.
 
 ---
 
@@ -41,8 +44,9 @@ Durante el proceso de validación se ejecutaron los siguientes controles:
 ### Tipos de Datos Críticos
 - `anio`: Int64 (nullable)
 - `emision_toneladas`: float
-- Identificadores normalizados como `string`
-- Coordenadas geográficas como `float`
+- Identificadores normalizados (`id_vu`, `ciiu`, `rubro`, etc.): string
+- Coordenadas geográficas (`latitud`, `longitud`): float
+
 
 ### Valores Nulos
 Los valores nulos observados corresponden a condiciones esperadas y documentadas:
@@ -52,19 +56,19 @@ Los valores nulos observados corresponden a condiciones esperadas y documentadas
 - Clasificaciones económicas (`ciiu6`, `ciiu6_id`) incorporadas a partir de años posteriores.
 
 No se detectaron patrones anómalos ni inconsistencias críticas.
-
+<br><br>
 ### Distribución por Archivo de Origen
-- `2005-2017`: 104.863 registros  
-- `2018-2026`: 74.100 registros (distribuidos por año)
+
+- 2005–2017.csv: 104.863 registros  
+- 2018–2023.csv: ~64.300 registros  
+- 2024–2026.csv: 9.813 registros (año efectivo: 2024)
 
 ---
-<br>
+
 ## Conclusión
 
-El dataset `emisiones_staging.parquet` cumple satisfactoriamente con los criterios de calidad definidos para la capa *staging*.  
-Los resultados obtenidos son coherentes con la evolución histórica de los datos y con las decisiones de diseño documentadas en el esquema canónico.
+El dataset `emisiones_staging.parquet` cumple satisfactoriamente con los criterios de calidad definidos para la capa *staging*.
 
-Por tanto este dataset se considera apto para su uso en capas analíticas, modelado de datos y visualización dentro de la plataforma.
+Las limitaciones observadas corresponden a la naturaleza histórica y administrativa de las fuentes originales y han sido documentadas explícitamente, sin introducir suposiciones ni imputaciones artificiales.
 
----
-
+En consecuencia, el dataset se considera apto para su uso en capas analíticas, modelado de datos y generación de visualizaciones dentro de la plataforma.
